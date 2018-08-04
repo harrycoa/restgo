@@ -1,8 +1,10 @@
 package models
+
 type User struct {
-	Id int `json:"id"`
+	Id       int64  `json:"id"`
 	Username string `json:"username"`
 	Password string `json:"password"`
+	Email    string `json:"email"`
 }
 
 const userSchema string = `create database users(
@@ -16,14 +18,34 @@ const userSchema string = `create database users(
 type Users []User
 
 // crear constructos
-func NewUser(username, password string) *User {
-	user := &User {Username: username, Password: password}
+func NewUser(username, password, email string) *User {
+	user := &User{Username: username, Password: password, Email: email}
 	return user
 }
 
-func (this *User) Save(){
-	sql := "INSERT users SET username=?, password=?"
-	Exec(sql, this.Username,this.Password)
+func CreateUser(username, password, email string) *User {
+	user := NewUser(username, password, email)
+	user.Save()
+	return user
+}
+
+func (this *User) Save() {
+	if this.Id == 0 {
+		this.insert()
+	} else {
+		this.update()
+	}
+}
+
+func (this *User) insert() {
+	sql := "INSERT users SET username=?, password=?, email=?"
+	result, _ := Exec(sql, this.Username, this.Password, this.Email)
+	this.Id, _ = result.LastInsertId()
+}
+
+func (this *User) update() {
+	sql := "UPDATE users SET username=?, password=?, email=?"
+	Exec(sql, this.Username, this.Password, this.Email)
 }
 
 /*

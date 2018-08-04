@@ -1,27 +1,29 @@
+/*
 package handlers
 
 import (
+	"encoding/json"
 	"net/http"
+	"strconv"
+
 	"../models"
 	"github.com/gorilla/mux"
-	"strconv"
-	"encoding/json"
 )
 
-func GetUsers(w http.ResponseWriter, r *http.Request){
-	models.SendData(w,models.GetUsers())
+func GetUsers(w http.ResponseWriter, r *http.Request) {
+	models.SendData(w, models.GetUsers())
 }
 
-func GetUser(w http.ResponseWriter, r *http.Request){
+func GetUser(w http.ResponseWriter, r *http.Request) {
 	if user, err := getUserByRequest(r); err != nil {
 		models.SendNotFound(w)
-	}else {
-		models.SendData(w,user)
+	} else {
+		models.SendData(w, user)
 	}
 
 }
 
-func CreateUsers(w http.ResponseWriter, r *http.Request){
+func CreateUsers(w http.ResponseWriter, r *http.Request) {
 	user := models.User{}
 	decoder := json.NewDecoder(r.Body)
 
@@ -32,7 +34,7 @@ func CreateUsers(w http.ResponseWriter, r *http.Request){
 	}
 }
 
-func UpdateUser(w http.ResponseWriter, r *http.Request){
+func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	user, err := getUserByRequest(r)
 	if err != nil {
 		models.SendNotFound(w)
@@ -45,10 +47,10 @@ func UpdateUser(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	user = models.UpdateUser(user, userResponse.Username, userResponse.Password)
-	models.SendData(w,user)
+	models.SendData(w, user)
 }
 
-func DeleteUsers(w http.ResponseWriter, r *http.Request){
+func DeleteUsers(w http.ResponseWriter, r *http.Request) {
 	if user, err := getUserByRequest(r); err != nil {
 		models.SendNotFound(w)
 	} else {
@@ -56,7 +58,7 @@ func DeleteUsers(w http.ResponseWriter, r *http.Request){
 		models.SendNoContent(w)
 	}
 }
-func getUserByRequest(r *http.Request) (models.User, error){
+func getUserByRequest(r *http.Request) (models.User, error) {
 	vars := mux.Vars(r)
 	userId, _ := strconv.Atoi(vars["id"]) //string
 	if user, err := models.GetUser(userId); err != nil {
@@ -65,3 +67,4 @@ func getUserByRequest(r *http.Request) (models.User, error){
 		return user, nil
 	}
 }
+*/
