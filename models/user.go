@@ -10,7 +10,7 @@ type User struct {
 }
 
 const userSchema string = `create database users(
-  id int(6) unsiged auto_increment primary key,
+  id int(6) unsigNed auto_increment primary key,
   username varchar(100) not null,
   password varchar(256) not null,
   email varchar(200) null,
