@@ -1,4 +1,3 @@
-/*
 package handlers
 
 import (
@@ -67,4 +66,3 @@ func getUserByRequest(r *http.Request) (models.User, error) {
 		return user, nil
 	}
 }
-*/
