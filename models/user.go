@@ -1,5 +1,7 @@
 package models
 
+import "fmt"
+
 type User struct {
 	Id       int64  `json:"id"`
 	Username string `json:"username"`
@@ -29,6 +31,29 @@ func CreateUser(username, password, email string) *User {
 	return user
 }
 
+func GetUser(id int) *User{
+	user := NewUser("","","")
+	sql := "select id, username, password, email FROM users where id=?"
+	rows, _ := Query(sql,id)
+	for rows.Next(){
+		rows.Scan(&user.Id, &user.Username, &user.Password, &user.Password)
+	}
+	return user
+}
+
+func GetUsers() Users {
+	sql := "Select id,username,password,email from users"
+	users := Users{}
+	rows, _ := Query(sql)
+
+	for rows.Next() {
+		user := User{}
+		rows.Scan(&user.Id, &user.Username, &user.Password, &user.Password)
+		users = append(users,user)
+	}
+	return users
+}
+
 func (this *User) Save() {
 	if this.Id == 0 {
 		this.insert()
@@ -46,6 +71,12 @@ func (this *User) insert() {
 func (this *User) update() {
 	sql := "UPDATE users SET username=?, password=?, email=?"
 	Exec(sql, this.Username, this.Password, this.Email)
+}
+
+func (this *User) Delete() {
+	sql3 := "DELETE FROM users WHERE id=?"
+	Exec(sql3, this.Id)
+	fmt.Println("se elimino correctamente")
 }
 
 /*
