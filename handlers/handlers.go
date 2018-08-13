@@ -1,14 +1,6 @@
 package handlers
 
-import (
-	"encoding/json"
-	"net/http"
-	"strconv"
-
-	"../models"
-	"github.com/gorilla/mux"
-)
-
+/*
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	models.SendData(w, models.GetUsers())
 }
@@ -21,7 +13,9 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+*/
 
+/*
 func CreateUsers(w http.ResponseWriter, r *http.Request) {
 	user := models.User{}
 	decoder := json.NewDecoder(r.Body)
@@ -66,3 +60,4 @@ func getUserByRequest(r *http.Request) (models.User, error) {
 		return user, nil
 	}
 }
+*/

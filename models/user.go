@@ -48,7 +48,7 @@ func GetUsers() Users {
 
 	for rows.Next() {
 		user := User{}
-		rows.Scan(&user.Id, &user.Username, &user.Password, &user.Password)
+		rows.Scan(&user.Id, &user.Username, &user.Password, &user.Email)
 		users = append(users,user)
 	}
 	return users

@@ -4,20 +4,16 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-
 	_ "github.com/go-sql-driver/mysql"
+	"../config"
 )
 
 var db *sql.DB
 
-const username string = "root"
-const password string = "root"
-const host string = "201.240.29.92"
-const port int = 9001
-const database string = "goweb"
 
 func CreateConnection() {
-	if connection, err := sql.Open("mysql", generateURL()); err != nil {
+	url := config.GetUrlDatabase()
+	if connection, err := sql.Open("mysql", url); err != nil {
 		panic(err)
 	} else {
 		db = connection
@@ -74,8 +70,5 @@ func Closeconnection() {
 	db.Close()
 }
 
-func generateURL() string {
-	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", username, password, host, port, database)
-}
 
 //<username>:<password>@tcp(<hot>:<port>)/<database>
